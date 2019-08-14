@@ -6,7 +6,3 @@
 <QuerySet []>
 <QuerySet []>
 <QuerySet []>
-<QuerySet []>
-<QuerySet []>
-<QuerySet []>
-<QuerySet []>

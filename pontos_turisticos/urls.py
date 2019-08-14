@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
+from rest_framework_simplejwt import views as jwt_views
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -29,12 +30,14 @@ from avaliacoes.api.viewsets import AvaliacaoViewSet
 
 router = routers.DefaultRouter()
 router.register(r'pontosturisticos', PontoTuristicoViewSet, base_name='PontoTuristico')
-router.register(r'atracoes', AtracaoViewSet)
+router.register(r'atracoes', AtracaoViewSet, base_name='Atracao')
 router.register(r'enderecos', EnderecoViewSet)
-router.register(r'comentarios', ComentarioViewSet)
-router.register(r'avaliacoes', AvaliacaoViewSet)
+router.register(r'comentarios', ComentarioViewSet, base_name='Comentario')
+router.register(r'avaliacoes', AvaliacaoViewSet, base_name='Avaliacao')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
